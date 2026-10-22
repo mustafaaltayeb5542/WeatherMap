@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherMap - Interactive Weather App</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1 class="app-title">🌤️ WeatherMap</h1>
+        </header>
+
+        <section class="search-section">
+            <form id="weather-form" class="weather-form" autocomplete="off">
+                <div class="input-group">
+                    <input
+                        type="text"
+                        id="location-input"
+                        class="location-input"
+                        placeholder="Enter city name... (Example: Riyadh)"
+                        required
+                    >
+                    <button type="submit" id="get-weather-btn" class="get-weather-btn">
+                        <span class="btn-text">Get Weather</span>
+                        <span class="btn-spinner hidden"></span>
+                    </button>
+                </div>
+            </form>
+
+            <div id="favorites-section" class="favorites-section hidden">
+                <span class="favorites-label">⭐ Favorites:</span>
+                <div id="favorites-list" class="favorites-list"></div>
+            </div>
+        </section>
+
+        <section class="map-section">
+            <div id="map" class="map-container"></div>
+            <div id="loading-spinner" class="loading-spinner hidden">
+                <div class="spinner"></div>
+                <p>Loading data...</p>
+            </div>
+        </section>
+
+        <div id="error-alert" class="error-alert hidden" role="alert">
+            <span class="error-icon">⚠️</span>
+            <span id="error-message" class="error-message"></span>
+            <button id="error-close" class="error-close" aria-label="Close">×</button>
+        </div>
+
+        <section id="forecast-section" class="forecast-section hidden">
+            <h2 class="forecast-title">📅 5-Day Forecast</h2>
+            <div id="forecast-container" class="forecast-container"></div>
+        </section>
+
+        <footer class="app-footer">
+            <p>Designed by Mustafa Al-Tayeb Al-Haj Dwalbeit</p>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
