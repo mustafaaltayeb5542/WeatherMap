@@ -353,21 +353,12 @@ function buildWeatherInfoWindow(weather, cityName) {
 function openInfoWindow(weather, cityName) {
     const html = buildWeatherInfoWindow(weather, cityName);
 
-    state.marker
-        .bindPopup(html, {
-            maxWidth: 320,
-            className: 'weather-popup'
-        })
-        .openPopup();
-
-    state.marker.once('popupopen', () => {
-        const popup = state.marker.getPopup();
-        const popupElement = popup.getElement();
-
+    state.map.once('popupopen', (e) => {
+        const popupElement = e.popup.getElement();
         if (!popupElement) return;
 
         const shareBtn = popupElement.querySelector('#share-weather-btn');
-        const saveBtn = popupElement.querySelector('#save-weather-btn');
+        const saveBtn  = popupElement.querySelector('#save-weather-btn');
 
         if (shareBtn) {
             shareBtn.addEventListener('click', async () => {
@@ -387,6 +378,13 @@ function openInfoWindow(weather, cityName) {
             });
         }
     });
+
+    state.marker
+        .bindPopup(html, {
+            maxWidth: 320,
+            className: 'weather-popup'
+        })
+        .openPopup();
 }
 
 
