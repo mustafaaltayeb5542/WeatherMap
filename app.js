@@ -350,7 +350,6 @@ function buildWeatherInfoWindow(weather, cityName) {
         </div>
     `;
 }
-
 function openInfoWindow(weather, cityName) {
     const html = buildWeatherInfoWindow(weather, cityName);
 
@@ -361,14 +360,23 @@ function openInfoWindow(weather, cityName) {
         })
         .openPopup();
 
-    state.map.once('popupopen', () => {
-        const shareBtn = document.getElementById('share-weather-btn');
-        const saveBtn = document.getElementById('save-weather-btn');
-        
+    state.marker.once('popupopen', () => {
+        const popup = state.marker.getPopup();
+        const popupElement = popup.getElement();
+
+        if (!popupElement) return;
+
+        const shareBtn = popupElement.querySelector('#share-weather-btn');
+        const saveBtn = popupElement.querySelector('#save-weather-btn');
 
         if (shareBtn) {
-            shareBtn.addEventListener('click', () => {
-                shareWeather(weather, cityName);
+            shareBtn.addEventListener('click', async () => {
+                try {
+                    await shareWeather(weather, cityName);
+                } catch (error) {
+                    console.error('Share failed:', error);
+                    showError('Could not share weather information.');
+                }
             });
         }
 
@@ -378,11 +386,8 @@ function openInfoWindow(weather, cityName) {
                 showTemporaryToast(`⭐ "${cityName}" added to favorites`);
             });
         }
-
-       
     });
 }
-
 
 
 async function shareWeather(weather, cityName) {
