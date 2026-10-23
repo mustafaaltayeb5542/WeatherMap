@@ -35,7 +35,7 @@ How to Run
 
 Student Information
 
-Student Name: Mustafa Altayeb
+Student Name: Mustafa Altayeb Alhag
 
 License
 
