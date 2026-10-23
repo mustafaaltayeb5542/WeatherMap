@@ -37,6 +37,4 @@ Student Information
 
 Student Name: Mustafa Altayeb Alhag
 
-License
-
-This project was developed for educational purposes.
+GitHub:https://github.com/mustafaaltayeb5542/WeatherMap
