@@ -1,4 +1,4 @@
-WeatherMap - Interactive Weather Application
+WeatherMap 
 
 Project Description
 
