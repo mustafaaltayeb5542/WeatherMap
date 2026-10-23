@@ -345,7 +345,7 @@ function buildWeatherInfoWindow(weather, cityName) {
             <div class="popup-actions">
                 <button class="share-btn" id="share-weather-btn">📤 Share</button>
                 <button class="save-btn" id="save-weather-btn">⭐ Save</button>
-                <button class="facebook-btn" id="facebook-weather-btn">f Share</button>
+               
             </div>
         </div>
     `;
@@ -364,7 +364,7 @@ function openInfoWindow(weather, cityName) {
     state.map.once('popupopen', () => {
         const shareBtn = document.getElementById('share-weather-btn');
         const saveBtn = document.getElementById('save-weather-btn');
-        const fbBtn = document.getElementById('facebook-weather-btn');
+        
 
         if (shareBtn) {
             shareBtn.addEventListener('click', () => {
@@ -379,21 +379,11 @@ function openInfoWindow(weather, cityName) {
             });
         }
 
-        if (fbBtn) {
-            fbBtn.addEventListener('click', () => {
-                shareToFacebook(weather, cityName);
-            });
-        }
+       
     });
 }
 
-function shareToFacebook(weather, cityName) {
-    const temp = Math.round(weather.main.temp);
-    const description = capitalize(weather.weather[0].description);
-    const text = `🌤️ Weather in ${cityName}: ${temp}°C, ${description}`;
-    const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(text)}`;
-    window.open(url, '_blank', 'width=600,height=500');
-}
+
 
 async function shareWeather(weather, cityName) {
     const temp = Math.round(weather.main.temp);
@@ -411,13 +401,14 @@ async function shareWeather(weather, cityName) {
         `— via WeatherMap SPA`;
 
     if (navigator.share) {
-        try {
-            await navigator.share({
-                title: `Weather in ${cityName}`,
-                text: text
-            });
+    try {
+        await navigator.share({
+            title: `Weather in ${cityName}`,
+            text: text,
+            url: window.location.href
+        });
 
-            return;
+        return;
         } catch (error) {
             if (error.name === 'AbortError') {
                 return;
